@@ -94,7 +94,7 @@ export default {
 
 @keyframes colorIn {
   from {
-    color: black;
+    color: $black;
   }
   to {
     color: $typing-current-color;

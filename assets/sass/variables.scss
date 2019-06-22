@@ -1,7 +1,8 @@
+$black: #333;
 $bg-color : #EEE;
-$word-color: black;
+$word-color: $black;
 $typing-current-color: rgb(104, 185, 190);
 $typing-yet-color: grey;
-$typing-typed-color: black;
+$typing-typed-color: $black;
 $typing-typo-color: #E84A5F;
 $progress-color: rgb(104, 185, 190);

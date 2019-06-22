@@ -64,7 +64,7 @@ export default {
   justify-content: center;
   align-items: center;
   div {
-    background: black;
+    background: $black;
     padding: 0 100px;
     color: white;
     height: 150px;

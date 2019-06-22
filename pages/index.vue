@@ -47,6 +47,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   background-color: $bg-color;
+  color: $black;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
