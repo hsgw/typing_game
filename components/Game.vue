@@ -4,7 +4,7 @@
       <div id="word">{{ word.raw }}</div>
       <TypingWordStatus
         :time-stamp="timeStamp"
-        :word="currentTypingWord()"
+        :word="currentTypingWord"
         :typed="typed.charCount"
         :typo="typo"
         :current-key="currentKey"
@@ -14,35 +14,25 @@
         :style="'animation-duration: ' + gameDuration + 's'"
       ></div>
     </template>
-    <template v-else>
-      <div v-if="countDown === -1" class="preStart">
-        <div>Push space to start</div>
-        <div>スペースを押してスタート</div>
-      </div>
-      <div v-else-if="countDownChar !== 0" class="countDown">
-        <div :class="countDownAnime ? 'animation' : ''">
-          {{ countDownChar }}
-        </div>
-      </div>
-    </template>
+    <Countdown v-else @on-end="gameStart" />
   </div>
 </template>
 
 <script>
+import Countdown from '~/components/Countdown.vue'
 import TypingWordStatus from '~/components/TypingWordStatus.vue'
 import Roman from '~/components/Roman.js'
 
 export default {
   name: 'Game',
   components: {
+    Countdown,
     TypingWordStatus
   },
   props: { dict: Object, gameDuration: Number },
   data: function() {
     return {
       timeStamp: Date.now(),
-      countDown: -1,
-      countDownAnime: false,
       started: false,
       word: {
         raw: '',
@@ -64,35 +54,48 @@ export default {
     }
   },
   computed: {
-    countDownChar() {
-      return 3 - this.countDown
+    currentTypingWord() {
+      let ret = ''
+      for (const a of this.word.alpha) {
+        ret += a[0][0]
+      }
+      return ret
     }
   },
   created() {
     this.nextWord()
   },
-  mounted() {
-    window.addEventListener('keydown', this.onkey)
-  },
+  mounted() {},
   methods: {
+    gameStart() {
+      window.addEventListener('keydown', this.onkey)
+      // game start
+      this.started = true
+      setTimeout(() => {
+        // game end
+        // this.started = false
+        window.removeEventListener('keydown', this.onkey)
+        this.$emit('on-end', {
+          score: this.score.total,
+          count: this.typed.total
+        })
+      }, this.gameDuration * 1000)
+    },
     onkey(e) {
       e.preventDefault()
-      if (!this.started) {
-        if (e.key === ' ') {
-          this.countDown = 0
-          this.startCountDown()
-        }
-        return
-      }
       if (e.key === 'Shift' || e.key === 'Control') {
         return
       }
-      this.currentKey = e.key
-      if (this.currentKey === ' ') this.currentKey = 'Space'
+
+      if (e.key === ' ') this.currentKey = 'Space'
+      else this.currentKey = e.key
+
       this.timeStamp = Date.now()
+
       const current = this.word.alpha[this.typed.alphaCount][0].filter(c => {
         return c.search(this.typed.char + e.key) === 0
       })
+
       if (current.length !== 0) {
         this.typo = false
         this.word.alpha[this.typed.alphaCount][0] = current
@@ -130,38 +133,6 @@ export default {
           this.word.alpha = Roman.transcate(this.word.raw)
           return
         }
-      }
-    },
-    currentTypingWord() {
-      let ret = ''
-      for (const a of this.word.alpha) {
-        ret += a[0][0]
-      }
-      return ret
-    },
-    setGameTimer() {
-      setTimeout(() => {
-        this.started = false
-        window.removeEventListener('keydown', this.onkey)
-        this.$emit('game-end', {
-          score: this.score.total,
-          count: this.typed.total
-        })
-      }, this.gameDuration * 1000)
-    },
-    startCountDown() {
-      if (this.countDown === 3) {
-        this.started = true
-        this.setGameTimer()
-      } else {
-        this.countDownAnime = true
-        setTimeout(() => {
-          this.countDownAnime = false
-        }, 500)
-        setTimeout(() => {
-          this.countDown += 1
-          this.startCountDown()
-        }, 1000)
       }
     }
   }
@@ -201,51 +172,5 @@ export default {
 .progressAnime {
   animation-name: progress;
   animation-timing-function: linear;
-}
-
-.preStart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  div {
-    background: black;
-    padding: 0 100px;
-    color: white;
-    height: 150px;
-    line-height: 150px;
-  }
-  :first-child {
-    font-size: 5rem;
-  }
-  :last-child {
-    margin-top: 100px;
-    font-size: 4rem;
-  }
-}
-
-@keyframes bounce {
-  0% {
-    transform: scale(1.1);
-  }
-
-  30% {
-    transform: scale(1.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-.countDown {
-  font-size: 10rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .animation {
-    animation: bounce 0.2s ease-in;
-  }
 }
 </style>

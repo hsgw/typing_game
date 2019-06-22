@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <Game :dict="dict" :game-duration="gameDuration" @game-end="gameEnd" />
+    <Game
+      :dict="dicts[selectedDictIndex]"
+      :game-duration="gameDuration"
+      @on-end="gameEnd"
+    />
   </div>
 </template>
 
 <script>
 import Game from '~/components/Game.vue'
-// eslint-disable-next-line no-unused-vars
-import dictEn from '~/static/dict_en.json'
-// eslint-disable-next-line no-unused-vars
-import dictJp from '~/static/dict_jp.json'
+import DictJP from '~/assets/dict/dict_jp.json'
+import DictEN from '~/assets/dict/dict_en.json'
 
 export default {
   components: {
@@ -17,7 +19,8 @@ export default {
   },
   data: function() {
     return {
-      dict: dictJp,
+      dicts: [DictJP, DictEN],
+      selectedDictIndex: 0,
       gameDuration: 15
     }
   },
