@@ -1,6 +1,7 @@
 <template>
   <div id="game">
-    <template v-if="started">
+    <Countdown v-if="!started" @on-end="gameStart" />
+    <template v-else>
       <div id="word">{{ word.raw }}</div>
       <TypingWordStatus
         :time-stamp="timeStamp"
@@ -14,7 +15,6 @@
         :style="'animation-duration: ' + gameDuration + 's'"
       ></div>
     </template>
-    <Countdown v-else @on-end="gameStart" />
   </div>
 </template>
 

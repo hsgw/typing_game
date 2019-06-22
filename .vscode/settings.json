@@ -11,7 +11,7 @@
   "eslint.options": {
     "configFile": ".eslintrc.js"
   },
-  "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": false,
+  "editor.formatOnSave": false,
+  "eslint.autoFixOnSave": true,
   "vetur.format.defaultFormatter.html": "prettier"
 }
