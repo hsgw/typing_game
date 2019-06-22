@@ -1,6 +1,7 @@
 <template>
   <div id="game">
-    <Countdown v-if="!started" @on-end="gameStart" />
+    <Dictionary v-if="dict === null" @on-select="selectDict" />
+    <Countdown v-else-if="!started" @on-end="gameStart" />
     <template v-else>
       <div id="word">{{ word.raw }}</div>
       <TypingWordStatus
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import Dictionary from '~/components/Dictionary.vue'
 import Countdown from '~/components/Countdown.vue'
 import TypingWordStatus from '~/components/TypingWordStatus.vue'
 import Roman from '~/components/Roman.js'
@@ -26,14 +28,16 @@ import Roman from '~/components/Roman.js'
 export default {
   name: 'Game',
   components: {
+    Dictionary,
     Countdown,
     TypingWordStatus
   },
-  props: { dict: Object, gameDuration: Number },
+  props: { gameDuration: Number },
   data: function() {
     return {
       timeStamp: Date.now(),
       started: false,
+      dict: null,
       word: {
         raw: '',
         alpha: [],
@@ -62,25 +66,10 @@ export default {
       return ret
     }
   },
-  created() {
-    this.nextWord()
+  destroyed() {
+    window.removeEventListener('keydown', this.onkey)
   },
-  mounted() {},
   methods: {
-    gameStart() {
-      window.addEventListener('keydown', this.onkey)
-      // game start
-      this.started = true
-      setTimeout(() => {
-        // game end
-        // this.started = false
-        window.removeEventListener('keydown', this.onkey)
-        this.$emit('on-end', {
-          score: this.score.total,
-          count: this.typed.total
-        })
-      }, this.gameDuration * 1000)
-    },
     onkey(e) {
       e.preventDefault()
       if (e.key === 'Shift' || e.key === 'Control') {
@@ -134,6 +123,24 @@ export default {
           return
         }
       }
+    },
+    selectDict(dict) {
+      this.dict = dict
+    },
+    gameStart() {
+      this.nextWord()
+      window.addEventListener('keydown', this.onkey)
+      // game start
+      this.started = true
+      setTimeout(() => {
+        // game end
+        // this.started = false
+        window.removeEventListener('keydown', this.onkey)
+        this.$emit('on-end', {
+          score: this.score.total,
+          count: this.typed.total
+        })
+      }, this.gameDuration * 1000)
     }
   }
 }

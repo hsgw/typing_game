@@ -1,7 +1,8 @@
 <template>
   <div class="container">
+    <Title v-if="status === Status.Title" :dicts="dicts" />
     <Game
-      :dict="dicts[selectedDictIndex]"
+      v-if="status === Status.Game"
       :game-duration="gameDuration"
       @on-end="gameEnd"
     />
@@ -10,8 +11,13 @@
 
 <script>
 import Game from '~/components/Game.vue'
-import DictJP from '~/assets/dict/dict_jp.json'
-import DictEN from '~/assets/dict/dict_en.json'
+
+const Status = {
+  Title: 0,
+  Game: 1,
+  Result: 2,
+  Ranking: 3
+}
 
 export default {
   components: {
@@ -19,12 +25,17 @@ export default {
   },
   data: function() {
     return {
-      dicts: [DictJP, DictEN],
-      selectedDictIndex: 0,
+      Status: Status,
+      status: 1,
       gameDuration: 15
     }
   },
-  created() {},
+  created() {
+    this.status = Status.Game
+  },
+  destroyed() {
+    window.removeEventListener('keydown', this.onkey)
+  },
   methods: {
     gameEnd(result) {
       console.log(result)
