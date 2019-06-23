@@ -29,6 +29,7 @@ export default {
   },
   beforeDestroy() {
     clearTimeout(this.animationTimer)
+    window.removeEventListener('keydown', this.onkey)
   },
   methods: {
     onkey(e) {

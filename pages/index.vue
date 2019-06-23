@@ -6,17 +6,25 @@
       :game-duration="gameDuration"
       @on-end="gameEnd"
     />
+    <Result
+      v-else-if="status === Status.Result"
+      :result="result"
+      :rank="rank"
+      @close="resultClose"
+    />
   </div>
 </template>
 
 <script>
 import Title from '~/components/Title.vue'
 import Game from '~/components/Game.vue'
+import Result from '~/components/Result.vue'
 
 export default {
   components: {
     Title,
-    Game
+    Game,
+    Result
   },
   data: function() {
     return {
@@ -27,6 +35,8 @@ export default {
         Ranking: 3
       },
       status: 0,
+      result: {},
+      rank: 0,
       gameDuration: 15
     }
   },
@@ -39,8 +49,11 @@ export default {
       this.status = this.Status.Game
     },
     gameEnd(result) {
+      this.result = result
       this.status = this.Status.Result
-      console.log(result)
+    },
+    resultClose() {
+      this.status = this.Status.Ranking
     }
   }
 }

@@ -47,7 +47,8 @@ export default {
         total: 0,
         charCount: 0,
         alphaCount: 0,
-        char: ''
+        char: '',
+        typo: 0
       },
       currentKey: null,
       score: {
@@ -106,6 +107,7 @@ export default {
           }
         }
       } else {
+        this.typed.typo += 1
         this.typo = true
         this.score.base = 0
       }
@@ -138,7 +140,9 @@ export default {
         window.removeEventListener('keydown', this.onkey)
         this.$emit('on-end', {
           score: this.score.total,
-          count: this.typed.total
+          stroke: this.typed.total,
+          typo: this.typed.typo,
+          duration: this.gameDuration
         })
       }, this.gameDuration * 1000)
     }
