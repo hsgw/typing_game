@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Title v-if="status === Status.Title" :dicts="dicts" />
+    <Title v-if="status === Status.Title" @press-start="startGame" />
     <Game
-      v-if="status === Status.Game"
+      v-else-if="status === Status.Game"
       :game-duration="gameDuration"
       @on-end="gameEnd"
     />
@@ -10,34 +10,36 @@
 </template>
 
 <script>
+import Title from '~/components/Title.vue'
 import Game from '~/components/Game.vue'
-
-const Status = {
-  Title: 0,
-  Game: 1,
-  Result: 2,
-  Ranking: 3
-}
 
 export default {
   components: {
+    Title,
     Game
   },
   data: function() {
     return {
-      Status: Status,
-      status: 1,
+      Status: {
+        Title: 0,
+        Game: 1,
+        Result: 2,
+        Ranking: 3
+      },
+      status: 0,
       gameDuration: 15
     }
   },
   created() {
-    this.status = Status.Game
+    this.status = this.Status.Title
   },
-  destroyed() {
-    window.removeEventListener('keydown', this.onkey)
-  },
+  destroyed() {},
   methods: {
+    startGame() {
+      this.status = this.Status.Game
+    },
     gameEnd(result) {
+      this.status = this.Status.Result
       console.log(result)
     }
   }
