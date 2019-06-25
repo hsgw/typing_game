@@ -88,7 +88,7 @@ export default {
 
       if (current.length !== 0) {
         this.typo = false
-        this.word.alpha[this.typed.alphaCount][0] = current
+        this.$set(this.word.alpha[this.typed.alphaCount], 0, current)
         this.typed.char += e.key
         this.typed.total += 1
         this.typed.charCount += 1
@@ -140,12 +140,13 @@ export default {
         window.removeEventListener('keydown', this.onkey)
         this.$emit('on-end', {
           score: this.score.total,
-          speed:
-            Math.round((this.result.stroke / this.result.duration) * 60 * 100) /
-            100,
+          speed: Math.round((this.typed.total / this.gameDuration) * 60),
           accuracy:
-            Math.round((this.result.typo / this.result.stroke) * 100 * 100) /
-            100
+            Math.round(
+              ((this.typed.total - this.typed.typo) / this.typed.total) *
+                100 *
+                100
+            ) / 100
         })
       }, this.gameDuration * 1000)
     }

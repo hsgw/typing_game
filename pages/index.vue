@@ -47,7 +47,7 @@ export default {
     }
   },
   created() {
-    this.status = this.Status.Ranking
+    this.status = this.Status.Title
   },
   destroyed() {},
   methods: {
