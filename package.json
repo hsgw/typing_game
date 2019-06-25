@@ -13,6 +13,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "dexie": "^2.0.4",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

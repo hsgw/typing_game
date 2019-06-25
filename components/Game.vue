@@ -140,9 +140,12 @@ export default {
         window.removeEventListener('keydown', this.onkey)
         this.$emit('on-end', {
           score: this.score.total,
-          stroke: this.typed.total,
-          typo: this.typed.typo,
-          duration: this.gameDuration
+          speed:
+            Math.round((this.result.stroke / this.result.duration) * 60 * 100) /
+            100,
+          accuracy:
+            Math.round((this.result.typo / this.result.stroke) * 100 * 100) /
+            100
         })
       }, this.gameDuration * 1000)
     }

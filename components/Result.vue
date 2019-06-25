@@ -11,15 +11,11 @@
     </div>
     <div class="inner">
       <div class="heading">Speed</div>
-      <div class="value">{{ kpm }} kpm</div>
+      <div class="value">{{ result.speed }} kpm</div>
     </div>
     <div class="inner">
       <div class="heading">Accuracy</div>
-      <div class="value">{{ accuracy }} %</div>
-    </div>
-    <div class="inner rank">
-      <div class="heading">Rank</div>
-      <div class="value"># {{ rank }}</div>
+      <div class="value">{{ result.accuracy }} %</div>
     </div>
     <div v-show="ready" class="description">Press any key to continue</div>
   </div>
@@ -28,20 +24,13 @@
 <script>
 export default {
   name: 'Result',
-  props: { result: Object, rank: Number },
+  props: { result: Object },
   data: function() {
     return {
       ready: false
     }
   },
-  computed: {
-    kpm() {
-      return (this.result.stroke / this.result.duration) * 60
-    },
-    accuracy() {
-      return (this.result.typo / this.result.stroke) * 100
-    }
-  },
+  computed: {},
   mounted() {
     setTimeout(() => {
       this.ready = true
@@ -89,15 +78,6 @@ export default {
 .value {
   padding-left: 2rem;
   font-size: 3rem;
-}
-.rank {
-  margin-top: 1rem;
-  .heading {
-    font-size: 5rem;
-  }
-  .value {
-    font-size: 5rem;
-  }
 }
 
 @keyframes blink {

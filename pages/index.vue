@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="main">
     <Title v-if="status === Status.Title" @press-start="startGame" />
     <Game
       v-else-if="status === Status.Game"
@@ -9,8 +9,12 @@
     <Result
       v-else-if="status === Status.Result"
       :result="result"
-      :rank="rank"
       @close="resultClose"
+    />
+    <Ranking
+      v-else-if="status === Status.Ranking"
+      :result="result"
+      :event="event"
     />
   </div>
 </template>
@@ -19,12 +23,14 @@
 import Title from '~/components/Title.vue'
 import Game from '~/components/Game.vue'
 import Result from '~/components/Result.vue'
+import Ranking from '~/components/Ranking.vue'
 
 export default {
   components: {
     Title,
     Game,
-    Result
+    Result,
+    Ranking
   },
   data: function() {
     return {
@@ -36,12 +42,12 @@ export default {
       },
       status: 0,
       result: {},
-      rank: 0,
+      event: null,
       gameDuration: 15
     }
   },
   created() {
-    this.status = this.Status.Title
+    this.status = this.Status.Ranking
   },
   destroyed() {},
   methods: {
@@ -60,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+#main {
   background-color: $bg-color;
   color: $black;
   margin: 0 auto;
