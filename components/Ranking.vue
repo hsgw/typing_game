@@ -14,7 +14,7 @@
     </div>
     <div v-if="below" class="inner sub">
       <div v-for="(data, i) in above" :key="i + 5" class="item sub">
-        <div class="rank">{{ myRank - i + 4 }}</div>
+        <div class="rank">{{ myRank + i - 4 }}</div>
         <div class="score">{{ data.score }}</div>
         <div class="name">{{ data.name }}</div>
         <div class="keyboard">{{ data.keyboard }}</div>
@@ -26,7 +26,7 @@
         <div class="keyboard">{{ result.keyboard }}</div>
       </div>
       <div v-for="(data, i) in below" :key="i + 10" class="item sub">
-        <div class="rank">{{ myRank - i - 1 }}</div>
+        <div class="rank">{{ myRank + i + 1 }}</div>
         <div class="score">{{ data.score }}</div>
         <div class="name">{{ data.name }}</div>
         <div class="keyboard">{{ data.keyboard }}</div>
