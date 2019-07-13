@@ -52,7 +52,7 @@ export default {
       status: 0,
       result: {},
       event: null,
-      gameDuration: 15
+      gameDuration: 45
     }
   },
   created() {
