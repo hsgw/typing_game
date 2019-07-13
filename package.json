@@ -12,7 +12,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "build:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt build",
-    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate"
+    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "dexie": "^2.0.4",
@@ -39,6 +40,7 @@
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
+    "push-dir": "^0.4.1",
     "sass-loader": "^7.1.0"
   }
 }
