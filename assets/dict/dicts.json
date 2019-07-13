@@ -1,0 +1,7 @@
+{
+  "dicts": [
+    {"name": "jp", "lang": "にほんご"},
+    {"name": "en", "lang": "English"},
+    {"name": "c", "lang": "C"}
+  ]
+}

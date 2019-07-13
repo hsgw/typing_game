@@ -139,6 +139,7 @@ export default {
         // this.started = false
         window.removeEventListener('keydown', this.onkey)
         this.$emit('end', {
+          lang: this.dict.lang,
           score: this.score.total,
           speed: Math.round((this.typed.total / this.gameDuration) * 60),
           accuracy:

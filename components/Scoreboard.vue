@@ -15,7 +15,7 @@
             <span class="unit">wpm</span>
           </div>
           <div class="name">{{ data.name }}</div>
-          <div class="keyboard">{{ data.keyboard }}</div>
+          <div class="keyboard">{{ data.keyboard }} / {{ data.lang }}</div>
         </div>
       </div>
       <div v-if="aroundMyRank" class="inner sub">
@@ -28,7 +28,7 @@
           <div class="rank">{{ myRank + i - 4 }}</div>
           <div class="score">{{ data.score }}</div>
           <div class="name">{{ data.name }}</div>
-          <div class="keyboard">{{ data.keyboard }}</div>
+          <div class="keyboard">{{ data.keyboard }} / {{ data.lang }}</div>
         </div>
       </div>
       <div v-else class="inner sub">
@@ -36,7 +36,7 @@
           <div class="rank">{{ i + 6 }}</div>
           <div class="score">{{ data.score }}</div>
           <div class="name">{{ data.name }}</div>
-          <div class="keyboard">{{ data.keyboard }}</div>
+          <div class="keyboard">{{ data.keyboard }} / {{ data.lang }}</div>
         </div>
       </div>
     </div>
@@ -118,6 +118,7 @@ export default {
         }
         .keyboard {
           grid-area: keyboard;
+          font-size: 2rem;
         }
         .speed {
           grid-area: speed;

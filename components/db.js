@@ -4,6 +4,15 @@ const db = new Dexie('typingGame')
 db.version(1).stores({
   ranking: '++id, date, name, keyboard, score, speed, event'
 })
+db.version(2)
+  .stores({
+    ranking: '++id, date, name, keyboard, score, speed, event, lang'
+  })
+  .upgrade(trans => {
+    return trans.ranking.toCollection().modify(item => {
+      item.lang = ''
+    })
+  })
 
 export default {
   addEntry(entry) {
@@ -14,6 +23,7 @@ export default {
       score: entry.result.score,
       speed: entry.result.speed,
       event: entry.event,
+      lang: entry.result.lang,
       date: Date.now()
     })
   },

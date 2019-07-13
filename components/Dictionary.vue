@@ -2,7 +2,7 @@
   <div id="dictionary">
     <div class="title">
       <p class="description">Select language<br />言語を選択してください</p>
-      <p class="sub">SELECT:WASD/HJKL/ARROW OK:Space/Enter</p>
+      <p class="sub">SELECT : WASD/HJKL/ARROW OK : Space/Enter</p>
     </div>
     <div class="dicts">
       <div
@@ -19,17 +19,17 @@
 </template>
 
 <script>
-import DictJP from '~/assets/dict/dict_jp.json'
-import DictEN from '~/assets/dict/dict_en.json'
+import Dicts from '~/assets/dict/dicts.json'
 
 export default {
   name: 'Dictionary',
   data() {
     return {
-      dicts: [DictJP, DictEN],
+      dicts: Dicts.dicts,
       selectingDictIndex: 0
     }
   },
+  created() {},
   mounted() {
     window.addEventListener('keydown', this.onkey)
   },
@@ -37,11 +37,19 @@ export default {
     window.removeEventListener('keydown', this.onkey)
   },
   methods: {
-    onkey(e) {
+    async onkey(e) {
       e.preventDefault()
       if (e.key === ' ' || e.key === 'Enter') {
         window.removeEventListener('keydown', this.onkey)
-        this.$emit('on-select', this.dicts[this.selectingDictIndex])
+        const dict = await import(
+          '~/assets/dict/dict_' +
+            this.dicts[this.selectingDictIndex].name +
+            '.json'
+        )
+        this.$emit('on-select', {
+          words: dict.words,
+          lang: this.dicts[this.selectingDictIndex].name
+        })
       } else if (
         e.key === 'w' ||
         e.key === 'k' ||
@@ -71,8 +79,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#dictionary {
-}
 .title {
   .description {
     font-size: 3rem;

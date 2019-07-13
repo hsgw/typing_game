@@ -1,0 +1,15 @@
+{
+  "words": [
+    "void",
+    "char",
+    "short",
+    "int",
+    "long",
+    "float",
+    "double",
+    "auto",
+    "static",
+    "const",
+    "signed"
+  ]
+}
