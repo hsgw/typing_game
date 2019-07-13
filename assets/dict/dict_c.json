@@ -287,6 +287,6 @@
     "stddef.h",
     "iso646.h",
     "stdbool.h",
-    "stdint.h",
+    "stdint.h"
   ]
 }
