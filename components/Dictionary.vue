@@ -24,7 +24,7 @@ import DictEN from '~/assets/dict/dict_en.json'
 
 export default {
   name: 'Dictionary',
-  data: function() {
+  data() {
     return {
       dicts: [DictJP, DictEN],
       selectingDictIndex: 0

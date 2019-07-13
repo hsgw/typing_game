@@ -41,7 +41,7 @@ export default {
     Result,
     Ranking
   },
-  data: function() {
+  data() {
     return {
       Status: {
         Title: 0,

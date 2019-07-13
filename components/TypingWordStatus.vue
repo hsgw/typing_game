@@ -13,7 +13,7 @@
 export default {
   name: 'TypingWordStatus',
   props: { timeStamp: Number, word: String, typed: Number, typo: Boolean },
-  data: function() {
+  data() {
     return { typoAnime: false, animationTimeout: 0 }
   },
   watch: {

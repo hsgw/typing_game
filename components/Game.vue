@@ -33,7 +33,7 @@ export default {
     TypingWordStatus
   },
   props: { gameDuration: Number },
-  data: function() {
+  data() {
     return {
       timeStamp: Date.now(),
       started: false,

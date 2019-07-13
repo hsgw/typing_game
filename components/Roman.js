@@ -181,7 +181,7 @@ class Roman {
     } else result = [this.romanTable[nowChar].concat(), 1] // 普通のとき
 
     if (this.config.enableLKey) {
-      const target = result[0].filter(s => s.indexOf('x') !== -1)
+      const target = result[0].filter(s => s.includes('x'))
       result[0] = result[0].concat(
         target.reduce((res, item) => {
           const items = item.split('x')

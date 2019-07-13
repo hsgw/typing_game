@@ -22,7 +22,7 @@ export default {
   name: 'Ranking',
   components: { EnterRanking, Scoreboard },
   props: { result: Object, eventName: String },
-  data: function() {
+  data() {
     return {
       myRank: null,
       entered: false,
@@ -40,8 +40,8 @@ export default {
   methods: {
     async enterRanking({ name, keyboard }) {
       await db.addEntry({
-        name: name,
-        keyboard: keyboard,
+        name,
+        keyboard,
         result: this.result,
         event: this.eventName
       })

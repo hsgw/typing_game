@@ -27,7 +27,7 @@
 export default {
   name: 'Result',
   props: { result: Object },
-  data: function() {
+  data() {
     return {}
   },
   computed: {},

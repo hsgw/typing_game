@@ -30,7 +30,7 @@
 export default {
   name: 'EnterRanking',
   props: { myRank: Number, total: Number },
-  data: function() {
+  data() {
     return {
       name: '',
       keyboard: ''

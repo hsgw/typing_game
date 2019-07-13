@@ -49,7 +49,7 @@ import db from '~/components/db.js'
 export default {
   name: 'Scoreboard',
   props: { myRank: Number },
-  data: function() {
+  data() {
     return {
       top: null,
       aroundMyRank: null

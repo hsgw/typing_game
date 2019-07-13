@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'Title',
-  data: function() {
+  data() {
     return {
       source: 'Try typing.\nPress ESC key to start game...',
       typed: '',
