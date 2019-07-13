@@ -22,9 +22,6 @@ $ npm run generate
 
 # generate for gh-pages
 $ npm run generate:gh-pages
-
-# deploy
-$ npm run deploy
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
