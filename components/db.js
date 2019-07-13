@@ -7,6 +7,7 @@ db.version(1).stores({
 
 export default {
   addEntry(entry) {
+    console.log(entry)
     return db.ranking.add({
       name: entry.name ? entry.name : 'anonymous',
       keyboard: entry.keyboard ? entry.keyboard : 'unknown',
@@ -18,18 +19,36 @@ export default {
   },
 
   getAll() {
-    return db.ranking
-      .orderBy('score')
-      .reverse()
-      .toArray()
+    return db.ranking.toArray().then(array => {
+      array.sort((a, b) => {
+        if (a.score > b.score) return -1
+        else if (a.score < b.score) return 1
+        else if (a.id < b.id) return -1
+        else return 1
+      })
+      return Promise.resolve(array)
+    })
+  },
+
+  getCount() {
+    return this.getAll().then(array => {
+      return array.length
+    })
   },
 
   getTop(stop) {
-    return db.ranking
-      .orderBy('score')
-      .reverse()
-      .limit(stop)
-      .toArray()
+    return this.getAll().then(array => {
+      return array.slice(0, stop)
+    })
+  },
+
+  getRankAround(rank, num = 9) {
+    return this.getAll().then(array => {
+      return array.slice(
+        rank - Math.ceil(num / 2),
+        rank - Math.ceil(num / 2) + num
+      )
+    })
   },
 
   getRank(score) {
@@ -40,28 +59,6 @@ export default {
       .then(count => {
         return count + 1
       })
-  },
-
-  getAbove(score, num = 4) {
-    return db.ranking
-      .where('score')
-      .aboveOrEqual(score)
-      .limit(num)
-      .toArray()
-      .then(result => {
-        return result.sort((a, b) => {
-          return a.score > b.score ? -1 : 1
-        })
-      })
-  },
-
-  getbelow(score, num = 4) {
-    return db.ranking
-      .where('score')
-      .below(score)
-      .reverse()
-      .limit(num)
-      .toArray()
   },
 
   addTestEntry(num) {

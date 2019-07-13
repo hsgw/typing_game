@@ -1,23 +1,25 @@
 <template>
-  <div id="result">
-    <div class="inner">
-      <div class="title">Result</div>
-    </div>
-    <div class="inner">
-      <div class="heading">Score</div>
-      <div class="value">
-        {{ result.score }}
+  <div>
+    <div id="result">
+      <div class="inner">
+        <div class="title">Result</div>
       </div>
+      <div class="inner">
+        <div class="heading">Score</div>
+        <div class="value">
+          {{ result.score }}
+        </div>
+      </div>
+      <div class="inner">
+        <div class="heading">Speed</div>
+        <div class="value">{{ result.speed }} kpm</div>
+      </div>
+      <div class="inner">
+        <div class="heading">Accuracy</div>
+        <div class="value">{{ result.accuracy }} %</div>
+      </div>
+      <div class="description animation">Press any key to continue</div>
     </div>
-    <div class="inner">
-      <div class="heading">Speed</div>
-      <div class="value">{{ result.speed }} kpm</div>
-    </div>
-    <div class="inner">
-      <div class="heading">Accuracy</div>
-      <div class="value">{{ result.accuracy }} %</div>
-    </div>
-    <div v-show="ready" class="description">Press any key to continue</div>
   </div>
 </template>
 
@@ -26,16 +28,13 @@ export default {
   name: 'Result',
   props: { result: Object },
   data: function() {
-    return {
-      ready: false
-    }
+    return {}
   },
   computed: {},
   mounted() {
     setTimeout(() => {
-      this.ready = true
       window.addEventListener('keydown', this.onkey)
-    }, 3000)
+    }, 1500)
   },
   beforeDestroy() {
     window.removeEventListener('keydown', this.onkey)
@@ -54,6 +53,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.inner {
+  display: flex;
+  padding-top: 1rem;
+  text-align: left;
+}
 .title {
   display: inline-block;
   color: white;
@@ -61,11 +65,6 @@ export default {
   font-size: 6rem;
   padding-left: 1rem;
   width: 600px;
-}
-.inner {
-  display: flex;
-  padding-top: 1rem;
-  text-align: left;
 }
 .heading {
   display: inline-block;
@@ -83,16 +82,21 @@ export default {
 @keyframes blink {
   to,
   from {
-    color: transparent;
+    opacity: 0;
   }
   50% {
-    color: $black;
+    opacity: 1;
   }
 }
+
 .description {
+  opacity: 0;
   margin-top: 2rem;
   font-size: 2rem;
-  animation: blink 1s step-end infinite;
-  animation-delay: 1s;
+  &.animation {
+    opacity: 0;
+    animation: blink 1s step-end infinite;
+    animation-delay: 1.5s;
+  }
 }
 </style>

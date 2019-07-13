@@ -138,7 +138,7 @@ export default {
         // game end
         // this.started = false
         window.removeEventListener('keydown', this.onkey)
-        this.$emit('on-end', {
+        this.$emit('end', {
           score: this.score.total,
           speed: Math.round((this.typed.total / this.gameDuration) * 60),
           accuracy:
@@ -157,6 +157,7 @@ export default {
 <style lang="scss" scoped>
 #game {
   position: relative;
+  flex-direction: column;
   width: 100vw;
 }
 

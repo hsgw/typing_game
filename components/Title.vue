@@ -1,8 +1,7 @@
 <template>
   <div class="title">
-    <textarea v-model="text" rows="10" cols="50" :placeholder="typed">
-    </textarea>
-    <div class="description" :class="text ? 'show' : 'hidden'">
+    <textarea rows="10" cols="50"> </textarea>
+    <div class="description">
       Try typing, Press ESC key to start typing game.
     </div>
   </div>
@@ -83,34 +82,8 @@ textarea {
   padding: 1rem;
 }
 
-@keyframes show {
-  from {
-    color: transparent;
-  }
-  to {
-    color: $typing-yet-color;
-  }
-}
-
-@keyframes hidden {
-  to {
-    color: transparent;
-  }
-  from {
-    color: $typing-yet-color;
-  }
-}
-
 .description {
   font-size: 2rem;
   color: $typing-yet-color;
-}
-.hidden {
-  animation: hidden 1s;
-  animation-fill-mode: forwards;
-}
-.show {
-  animation: show 1s;
-  animation-fill-mode: forwards;
 }
 </style>
