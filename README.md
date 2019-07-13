@@ -2,6 +2,8 @@
 
 > typing game
 
+https://hsgw.github.io/typing_game/
+
 ## Build Setup
 
 ``` bash
@@ -17,6 +19,9 @@ $ npm start
 
 # generate static project
 $ npm run generate
+
+# generate for gh-pages
+$ npm run generate:gh-pages
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
