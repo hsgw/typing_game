@@ -1,6 +1,8 @@
 # typing
 
-> typing game
+typing game for keyboard exhibition.
+ranking and dictionary data is stored in local pc.
+you can use offline.
 
 https://hsgw.github.io/typing_game/
 
@@ -25,3 +27,6 @@ $ npm run generate:gh-pages
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+## License
+MIT
