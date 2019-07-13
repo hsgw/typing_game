@@ -16,7 +16,6 @@ db.version(2)
 
 export default {
   addEntry(entry) {
-    console.log(entry)
     return db.ranking.add({
       name: entry.name ? entry.name : 'anonymous',
       keyboard: entry.keyboard ? entry.keyboard : 'unknown',
