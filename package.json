@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "dexie": "^2.0.4",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.21",
     "nuxt": "^2.8.1"
   },
   "devDependencies": {
