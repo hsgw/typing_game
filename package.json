@@ -15,7 +15,7 @@
     "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate"
   },
   "dependencies": {
-    "dexie": "^2.0.4",
+    "dexie": "^3.2.2",
     "lodash": "^4.17.14",
     "nuxt": "^2.8.1"
   },
